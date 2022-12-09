@@ -1,53 +1,26 @@
 <template>
   <div
       class="m-task-container"
-      :class="[type]"
+      :class="[type, { done }]"
   >
     <slot></slot>
   </div>
 </template>
 
 <script>
-import _ from 'lodash'
 
-const ANIMAL_CLASS = 'animal'
-const DONE_CLASS = 'done'
-const HOME_CLASS = 'home'
-const PERSONAL_CLASS = 'personal'
-const WORK_CLASS = 'work'
 export default {
   name: "MTaskContainer",
 
   props: {
-    // [ANIMAL_CLASS]: {
-    //   type: Boolean,
-    //   default: false
-    // },
-    // [DONE_CLASS]: {
-    //   type: Boolean,
-    //   default: false
-    // },
-    // [HOME_CLASS]: {
-    //   type: Boolean,
-    //   default: false
-    // },
-    // [PERSONAL_CLASS]: {
-    //   type: Boolean,
-    //   default: false
-    // },
-    // [WORK_CLASS]: {
-    //   type: Boolean,
-    //   default: false
-    // },
+    done: {
+      type: Boolean,
+      default: false
+    },
+
     type: {
       type: String,
       default: ''
-    }
-  },
-
-  computed: {
-    colorClass() {
-      return _.filter([ANIMAL_CLASS, DONE_CLASS, HOME_CLASS, PERSONAL_CLASS, WORK_CLASS], clazz => this[clazz])
     }
   }
 }
