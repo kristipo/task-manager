@@ -106,27 +106,27 @@ export default {
     this.items = [
       {
         id: 1,
-        title: 'Home 21/25/55555',
-        description: 'newriel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme form iel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme form frmf',
+        title: 'Animal-21/25/55555-TASK1',
+        body: 'newriel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme form iel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme form frmf',
         type: 'animal',
         checked: false
       },
       {
         id: 2,
-        title: 'Home 21/25/55555',
-        type: 'animal',
-        description: 'newrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewriel0newrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewriel',
+        title: 'Home-15.12.2022-TASK2',
+        type: 'home',
+        body: 'newrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewriel0newrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewriel',
         checked: false
       },
       {
         id: 3,
-        title: 'Home 21/25/55555',
+        title: 'Work-21/25/55555-TASK3',
         type: 'work',
         checked: false
       },
       {
         id: 4,
-        title: 'Home 21/25/55555',
+        title: 'Personal-21/25/55555-TASK4',
         type: 'personal',
         checked: false
       }

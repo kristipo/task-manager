@@ -1,7 +1,7 @@
 <template>
   <m-task-container
       :done="item.checked"
-      :type="item.type"
+      :type="type"
       @click.native.stop="$emit('edit', item)"
   >
     <div
@@ -19,10 +19,10 @@
           {{ item.title }}
         </div>
         <div
-            v-if="item.description"
+            v-if="item.body"
             class="preview-text"
         >
-          {{ item.description }}
+          {{ item.body }}
         </div>
       </div>
       <div class="remove-button" @click.stop="$emit('remove', item)">
@@ -50,6 +50,12 @@ export default {
     item: {
       type: Object,
       required: true
+    }
+  },
+
+  computed: {
+    type() {
+      return this.item.title.split('-')[0].toLowerCase()
     }
   },
 

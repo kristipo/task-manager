@@ -11,7 +11,7 @@
     <div class="add-modal-content-container">
       <span>Task:</span>
       <input
-          v-model="title"
+          v-model="task"
           placeholder="Enter task"
       >
       <span>Date:</span>
@@ -20,9 +20,7 @@
           type="date"
       >
       <span>Type:</span>
-      <select
-          v-model="type"
-      >
+      <select v-model="type">
         <option
             v-for="(type, ind) in TYPES"
             :key="ind">
@@ -30,7 +28,7 @@
         </option>
       </select>
       <span>Description:</span>
-      <textarea v-model="description" rows="3"/>
+      <textarea v-model="body" rows="3"/>
     </div>
   </m-modal>
 </template>
@@ -39,12 +37,17 @@
 import MModal from "@/components/MModal.vue";
 import _ from "lodash";
 
-const ANIMAL_CLASS = 'animal'
-const HOME_CLASS = 'home'
-const PERSONAL_CLASS = 'personal'
-const WORK_CLASS = 'work'
+const EDIT_BUTTON_TEXT = 'Edit'
+const CREATE_BUTTON_TEXT = 'Create'
+const ANIMAL_TYPE = 'animal'
+const HOME_TYPE = 'home'
+const PERSONAL_TYPE = 'personal'
+const WORK_TYPE = 'work'
+const TYPES = [ANIMAL_TYPE, HOME_TYPE, PERSONAL_TYPE, WORK_TYPE]
 
-const TYPES = [ANIMAL_CLASS, HOME_CLASS, PERSONAL_CLASS, WORK_CLASS]
+const capitalizeFirst = str => {
+  return str[0].toUpperCase() + str.slice(1)
+}
 
 export default {
   name: "MAddTaskModal",
@@ -70,17 +73,17 @@ export default {
 
   data() {
     return {
-      title: '',
+      task: '',
       date: '',
       type: '',
-      description: '',
+      body: '',
       TYPES
     }
   },
 
   computed: {
     disabled() {
-      return _.isEmpty(this.title && this.type && this.date)
+      return _.isEmpty(this.task && this.type && this.date)
     },
 
     editMode() {
@@ -88,7 +91,7 @@ export default {
     },
 
     eventTypeText() {
-      return this.editMode ? 'Edit': 'Create'
+      return this.editMode ? EDIT_BUTTON_TEXT: CREATE_BUTTON_TEXT
     }
   },
 
@@ -98,10 +101,15 @@ export default {
         this.reset()
         return
       }
-      this.title = this.item?.title || ''
-      this.date = this.item?.date || ''
-      this.type = this.item?.type || ''
-      this.description = this.item?.description || ''
+
+      if (this.editMode) {
+        const [type, date, task] = this.item?.title.split('-')
+        this.type = type.toLowerCase()
+        const [day, month, year] = date.split('.')
+        this.date = [year, month, day].join('-')
+        this.task = task
+        this.body = this.item?.body || ''
+      }
     }
   },
 
@@ -111,19 +119,15 @@ export default {
     },
 
     reset() {
-      this.title = ''
-      this.date = ''
-      this.type = ''
-      this.description = ''
+      this.task = this.date = this.type = this.body = ''
     },
 
     submit() {
+      const [year, month, day] = this.date.split('-')
       this.$emit('submit', {
         id: this.item?.id,
-        title: this.title,
-        date: this.date,
-        type: this.type,
-        description: this.description,
+        title: [capitalizeFirst(this.type), [day, month, year].join('.'), this.task].join('-'),
+        body: this.body,
       })
       this.hide()
     }
