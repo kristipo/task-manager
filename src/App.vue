@@ -12,7 +12,7 @@
           <m-button
               text="Add"
               without-background
-              @click="modalVisible = true"
+              @click="addModalVisible = true"
           />
         </div>
       </div>
@@ -21,38 +21,53 @@
           :key="task.id"
           :item="task"
           @edit="editTask"
+          @remove="triggerRemove"
           @update-state="task.checked = $event"
       />
     </div>
     <m-add-task-modal
-        v-model="modalVisible"
+        v-model="addModalVisible"
         :item="selected"
+    />
+    <m-confirm-modal
+        v-model="removeModalVisible"
+        :item="selected"
+        @remove="removeTask"
     />
   </div>
 </template>
 
 <script>
-import MButton from "@/components/MButton.vue";
-import MTaskPreview from "@/components/MTaskPreview";
 import MAddTaskModal from "@/components/MAddTaskModal.vue";
+import MButton from "@/components/MButton.vue";
+import MConfirmModal from "@/components/MConfirmModal.vue";
+import MTaskPreview from "@/components/MTaskPreview";
 
 export default {
   components: {
-    MButton,
     MAddTaskModal,
+    MButton,
+    MConfirmModal,
     MTaskPreview
   },
 
   data() {
     return {
-      modalVisible: false,
+      addModalVisible: false,
       selected: null,
+      removeModalVisible: false,
       items: []
     }
   },
 
   watch: {
-    modalVisible(value) {
+    addModalVisible(value) {
+      if (!value) {
+        this.selected = null
+      }
+    },
+
+    removeModalVisible(value) {
       if (!value) {
         this.selected = null
       }
@@ -61,11 +76,21 @@ export default {
 
   methods: {
     editTask(item) {
-      this.modalVisible = true
+      this.addModalVisible = true
       this.selected = item
     },
 
-    filterDisplayedItems() {}
+    filterDisplayedItems() {},
+
+    removeTask(id) {
+      this.items = this.items.filter(item => item.id !== id)
+      this.removeModalVisible = false
+    },
+
+    triggerRemove(item) {
+      this.selected = item
+      this.removeModalVisible = true
+    }
   },
 
   created() {

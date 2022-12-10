@@ -25,7 +25,7 @@
           {{ item.description }}
         </div>
       </div>
-      <div class="remove-button" @click.stop="$emit('remove', item.id)">
+      <div class="remove-button" @click.stop="$emit('remove', item)">
         &times;
       </div>
     </div>
