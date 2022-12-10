@@ -9,32 +9,43 @@
       @ok="submit"
   >
     <div class="add-modal-content-container">
-      <span>Task:</span>
-      <input
-          v-model="task"
-          placeholder="Enter task"
-      >
-      <span>Date:</span>
-      <input
-          v-model="date"
-          type="date"
-      >
-      <span>Type:</span>
-      <select v-model="type">
-        <option
-            v-for="(type, ind) in TYPES"
-            :key="ind">
-          {{ type }}
-        </option>
-      </select>
-      <span>Description:</span>
-      <textarea v-model="body" rows="3"/>
+      <div class="create-form">
+        <div class="form-item">
+          <m-form-label label="Task:" />
+          <input
+              v-model="task"
+              placeholder="Enter task"
+          >
+        </div>
+        <div class="form-item">
+          <m-form-label label="Date:" />
+          <input
+              v-model="date"
+              type="date"
+          >
+        </div>
+        <div class="form-item">
+          <m-form-label label="Type:" />
+          <select v-model="type">
+            <option
+                v-for="(type, ind) in TYPES"
+                :key="ind">
+              {{ type }}
+            </option>
+          </select>
+        </div>
+        <div class="form-item">
+          <m-form-label label="Description:" />
+          <textarea v-model="body" rows="4"/>
+        </div>
+      </div>
     </div>
   </m-modal>
 </template>
 
 <script>
 import MModal from "@/components/MModal.vue";
+import MFormLabel from "@/components/MFormLabel.vue";
 
 const EDIT_BUTTON_TEXT = 'Edit'
 const CREATE_BUTTON_TEXT = 'Create'
@@ -51,7 +62,10 @@ const capitalizeFirst = str => {
 export default {
   name: "MAddTaskModal",
 
-  components: { MModal },
+  components: {
+    MFormLabel,
+    MModal
+  },
 
   props: {
     item: {
@@ -153,9 +167,24 @@ export default {
 <style scoped lang="scss">
   .add-modal-content-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    justify-content: center;
+
+    .create-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
+
+      .form-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    input, select, textarea {
+      min-width: 300px;
+    }
   }
 
 </style>

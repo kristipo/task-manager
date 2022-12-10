@@ -98,10 +98,11 @@ export default {
     .m-modal-container {
       position: relative;
       background: #fafafa;
-      width: 600px;
+      width: 400px;
       margin: auto;
       top: 100px;
       padding: 20px;
+      border-radius: 5px;
 
       .header-container {
         display: flex;
@@ -115,6 +116,7 @@ export default {
           padding: 5px;
           align-items: center;
           justify-content: center;
+          margin-right: -20px;
         }
 
         .close-button {
@@ -133,6 +135,7 @@ export default {
         gap: 10px;
         width: 100%;
         justify-content: flex-end;
+        margin-top: 30px;
       }
     }
   }
