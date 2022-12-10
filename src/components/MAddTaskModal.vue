@@ -128,6 +128,7 @@ export default {
         id: this.item?.id,
         title: [capitalizeFirst(this.type), [day, month, year].join('.'), this.task].join('-'),
         body: this.body,
+        completed: this.item?.completed || false
       })
       this.hide()
     }

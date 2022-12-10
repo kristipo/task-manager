@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="home">
+    <div class="home-page">
       <div class="header">
         <span>Tasks</span>
         <div class="action-buttons">
@@ -23,7 +23,7 @@
             :item="task"
             @edit="editTask"
             @remove="triggerRemove"
-            @update-state="task.checked = $event"
+            @update-state="task.completed = $event"
         />
       </template>
       <div
@@ -109,26 +109,26 @@ export default {
         title: 'Animal-21/25/55555-TASK1',
         body: 'newriel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme form iel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme form frmf',
         type: 'animal',
-        checked: false
+        completed: false
       },
       {
         id: 2,
         title: 'Home-15.12.2022-TASK2',
         type: 'home',
         body: 'newrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewriel0newrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewriel',
-        checked: false
+        completed: false
       },
       {
         id: 3,
         title: 'Work-21/25/55555-TASK3',
         type: 'work',
-        checked: false
+        completed: false
       },
       {
         id: 4,
         title: 'Personal-21/25/55555-TASK4',
         type: 'personal',
-        checked: false
+        completed: false
       }
     ]
   }
@@ -152,7 +152,7 @@ export default {
   height: 100%;
   min-height: 100vh;
 
-  .home {
+  .home-page {
     display: flex;
     flex-direction: column;
     gap: 15px;
