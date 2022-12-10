@@ -35,7 +35,6 @@
 
 <script>
 import MModal from "@/components/MModal.vue";
-import _ from "lodash";
 
 const EDIT_BUTTON_TEXT = 'Edit'
 const CREATE_BUTTON_TEXT = 'Create'
@@ -83,7 +82,7 @@ export default {
 
   computed: {
     disabled() {
-      return _.isEmpty(this.task && this.type && this.date)
+      return (this.task && this.type && this.date) === ''
     },
 
     editMode() {
@@ -124,11 +123,26 @@ export default {
 
     submit() {
       const [year, month, day] = this.date.split('-')
+
+      fetch('https://jsonplaceholder.typicode.com/todos', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: [capitalizeFirst(this.type), [day, month, year].join('.'), this.task].join('-'),
+          body: this.body,
+          completed: this.item?.completed || false,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+          .then((response) => response.json())
+          .then((json) => console.log(json));
       this.$emit('submit', {
         id: this.item?.id,
         title: [capitalizeFirst(this.type), [day, month, year].join('.'), this.task].join('-'),
         body: this.body,
-        completed: this.item?.completed || false
+        completed: this.item?.completed || false,
+        userId: 11
       })
       this.hide()
     }
