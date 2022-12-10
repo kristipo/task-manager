@@ -12,7 +12,7 @@
         </div>
         <div
             class="close-button"
-            @click="$emit('hide')"
+            @click="hide"
         >&times;</div>
       </div>
       <slot />
@@ -20,7 +20,7 @@
         <m-button
             secondary
             :text="cancelText"
-            @click="$emit('hide')"
+            @click="hide"
         />
         <m-button
             :text="okText"
@@ -72,6 +72,10 @@ export default {
   emits: ['hide', 'ok'],
 
   methods: {
+    hide() {
+      this.$emit('hide')
+    },
+
     misclick(ev) {
       if (this.$refs.modal === ev.target) {
         this.hide()
