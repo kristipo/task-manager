@@ -16,14 +16,23 @@
           />
         </div>
       </div>
-      <m-task-preview
-          v-for="task in items"
-          :key="task.id"
-          :item="task"
-          @edit="editTask"
-          @remove="triggerRemove"
-          @update-state="task.checked = $event"
-      />
+      <template v-if="items.length !== 0">
+        <m-task-preview
+            v-for="task in items"
+            :key="task.id"
+            :item="task"
+            @edit="editTask"
+            @remove="triggerRemove"
+            @update-state="task.checked = $event"
+        />
+      </template>
+      <div
+          v-else
+          class="no-data-message"
+      >
+        <div class="title">No data to display</div>
+        <span>Click to ADD</span>
+      </div>
     </div>
     <m-add-task-modal
         v-model="addModalVisible"
@@ -128,6 +137,11 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -135,6 +149,8 @@ export default {
   text-align: center;
   color: #383838;
   width: 100%;
+  height: 100%;
+  min-height: 100vh;
 
   .home {
     display: flex;
@@ -158,6 +174,21 @@ export default {
       .action-buttons {
         display: flex;
         gap: 10px;
+      }
+    }
+
+    .no-data-message {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .title {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      span {
+        color: grey;
       }
     }
   }
