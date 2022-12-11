@@ -22,8 +22,8 @@
               v-for="task in allTasks"
               :key="task.id"
               :item="task"
-              @edit="editTask"
-              @remove="triggerRemove"
+              @edit="!task.completed && editTask(task)"
+              @remove="triggerRemove(task)"
           />
         </div>
       </template>

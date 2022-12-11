@@ -2,7 +2,7 @@
   <m-task-container
       :done="tasksStates[item.id]"
       :type="type"
-      @click.native.stop="$emit('edit', item)"
+      @click.native.stop="$emit('edit')"
   >
     <div
         class="m-task-preview"
@@ -25,7 +25,7 @@
           {{ item.body }}
         </div>
       </div>
-      <div class="remove-button" @click.stop="$emit('remove', item)">
+      <div class="remove-button" @click.stop="$emit('remove')">
         &times;
       </div>
     </div>
