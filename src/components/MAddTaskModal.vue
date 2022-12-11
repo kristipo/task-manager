@@ -44,8 +44,9 @@
 </template>
 
 <script>
-import MModal from "@/components/MModal.vue";
-import MFormLabel from "@/components/MFormLabel.vue";
+import MModal from "@/components/MModal";
+import MFormLabel from "@/components/MFormLabel";
+import { ACTION_ADD_TASK, ACTION_EDIT_TASK } from "@/store";
 
 const EDIT_BUTTON_TEXT = 'Edit'
 const CREATE_BUTTON_TEXT = 'Create'
@@ -86,10 +87,10 @@ export default {
 
   data() {
     return {
-      task: '',
-      date: '',
-      type: '',
-      body: '',
+      task: 'task 1',
+      date: '2022-12-01',
+      type: 'animal',
+      body: 'body ddddd 1111d555d 555',
       TYPES
     }
   },
@@ -118,8 +119,7 @@ export default {
       if (this.editMode) {
         const [type, date, task] = this.item?.title.split('-')
         this.type = type.toLowerCase()
-        const [day, month, year] = date.split('.')
-        this.date = [year, month, day].join('-')
+        this.date = date.split('.').reverse().join('-')
         this.task = task
         this.body = this.item?.body || ''
       }
@@ -128,35 +128,24 @@ export default {
 
   methods: {
     hide() {
-      this.$emit('hide')
+      this.$emit('input', false)
     },
 
     reset() {
-      this.task = this.date = this.type = this.body = ''
+      // this.task = this.date = this.type = this.body = ''
+      this.task = 'task 1'
+      this.date = '2022-12-01'
+      this.type = 'animal'
+      this.body = 'body ddddd 1111d555d 555'
     },
 
-    submit() {
-      const [year, month, day] = this.date.split('-')
-
-      fetch('https://jsonplaceholder.typicode.com/todos', {
-        method: 'POST',
-        body: JSON.stringify({
-          title: [capitalizeFirst(this.type), [day, month, year].join('.'), this.task].join('-'),
-          body: this.body,
-          completed: this.item?.completed || false,
-        }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      })
-          .then((response) => response.json())
-          .then((json) => console.log(json));
-      this.$emit('submit', {
-        id: this.item?.id,
-        title: [capitalizeFirst(this.type), [day, month, year].join('.'), this.task].join('-'),
+    async submit() {
+      const date = this.date.split('-').reverse().join('.')
+      await this.$store.dispatch(this.editMode ? ACTION_EDIT_TASK : ACTION_ADD_TASK, {
+        id: this.item?.id || null,
+        title: [capitalizeFirst(this.type), date, this.task].join('-'),
         body: this.body,
-        completed: this.item?.completed || false,
-        userId: 11
+        completed: this.item?.completed || false
       })
       this.hide()
     }

@@ -16,9 +16,9 @@
           />
         </div>
       </div>
-      <template v-if="items.length !== 0">
+      <template v-if="allTasks.length !== 0">
         <m-task-preview
-            v-for="task in items"
+            v-for="task in allTasks"
             :key="task.id"
             :item="task"
             @edit="editTask"
@@ -51,6 +51,8 @@ import MAddTaskModal from "@/components/MAddTaskModal.vue";
 import MButton from "@/components/MButton.vue";
 import MConfirmModal from "@/components/MConfirmModal.vue";
 import MTaskPreview from "@/components/MTaskPreview";
+import { mapGetters } from "vuex";
+import { ACTION_DELETE_TASK } from "@/store";
 
 export default {
   components: {
@@ -67,6 +69,10 @@ export default {
       removeModalVisible: false,
       items: []
     }
+  },
+
+  computed: {
+    ...mapGetters(['allTasks'])
   },
 
   watch: {
@@ -91,8 +97,8 @@ export default {
 
     filterDisplayedItems() {},
 
-    removeTask(id) {
-      this.items = this.items.filter(item => item.id !== id)
+    async removeTask(id) {
+      await this.$store.dispatch(ACTION_DELETE_TASK, id)
       this.removeModalVisible = false
     },
 
@@ -100,37 +106,6 @@ export default {
       this.selected = item
       this.removeModalVisible = true
     }
-  },
-
-  created() {
-    this.items = [
-      {
-        id: 1,
-        title: 'Animal-21/25/55555-TASK1',
-        body: 'newriel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme form iel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme formiel kemfel mfem eofme form frmf',
-        type: 'animal',
-        completed: false
-      },
-      {
-        id: 2,
-        title: 'Home-15.12.2022-TASK2',
-        type: 'home',
-        body: 'newrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewriel0newrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewrielnewriel',
-        completed: false
-      },
-      {
-        id: 3,
-        title: 'Work-21/25/55555-TASK3',
-        type: 'work',
-        completed: false
-      },
-      {
-        id: 4,
-        title: 'Personal-21/25/55555-TASK4',
-        type: 'personal',
-        completed: false
-      }
-    ]
   }
 }
 
