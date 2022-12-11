@@ -24,7 +24,6 @@
               :item="task"
               @edit="editTask"
               @remove="triggerRemove"
-              @update-state="task.completed = $event"
           />
         </div>
       </template>

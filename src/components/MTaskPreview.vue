@@ -1,6 +1,6 @@
 <template>
   <m-task-container
-      :done="item.checked"
+      :done="tasksStates[item.id]"
       :type="type"
       @click.native.stop="$emit('edit', item)"
   >
@@ -8,7 +8,7 @@
         class="m-task-preview"
     >
       <input
-          :value="item.checked"
+          :checked="tasksStates[item.id]"
           type="checkbox"
           class="task-checkbox"
           @input="updateCheck"
@@ -34,6 +34,9 @@
 
 <script>
 import MTaskContainer from "@/components/MTaskContainer";
+import { ACTION_EDIT_TASK } from "@/store";
+import { mapGetters } from "vuex";
+
 export default {
   name: "MTaskPreview",
 
@@ -41,10 +44,7 @@ export default {
     MTaskContainer
   },
 
-  emits: [
-      'edit',
-      'update-state'
-  ],
+  emits: ['edit'],
 
   props: {
     item: {
@@ -54,6 +54,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['tasksStates']),
+
     type() {
       return this.item.title.split('-')[0].toLowerCase()
     }
@@ -61,7 +63,7 @@ export default {
 
   methods: {
     updateCheck(ev) {
-      this.$emit('update-state', ev.target.checked)
+      this.$store.dispatch(ACTION_EDIT_TASK, { ...this.item, completed: ev.target.checked })
     }
   }
 }

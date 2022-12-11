@@ -20,6 +20,10 @@ export default new Vuex.Store({
   getters: {
     allTasks(state) {
       return Object.values(state.tasks)
+    },
+
+    tasksStates(state) {
+      return Object.fromEntries(Object.values(state.tasks).map(t => [t.id, t.completed]))
     }
   },
 
