@@ -17,14 +17,16 @@
         </div>
       </div>
       <template v-if="allTasks.length !== 0">
-        <m-task-preview
-            v-for="task in allTasks"
-            :key="task.id"
-            :item="task"
-            @edit="editTask"
-            @remove="triggerRemove"
-            @update-state="task.completed = $event"
-        />
+        <div class="items-container">
+          <m-task-preview
+              v-for="task in allTasks"
+              :key="task.id"
+              :item="task"
+              @edit="editTask"
+              @remove="triggerRemove"
+              @update-state="task.completed = $event"
+          />
+        </div>
       </template>
       <div
           v-else
@@ -130,13 +132,22 @@ export default {
   width: 100%;
   height: 100%;
   min-height: 100vh;
+  display: flex;
 
   .home-page {
-    display: flex;
     flex-direction: column;
+    display: flex;
     gap: 15px;
     padding: 20px;
-    height: 100%;
+    flex: 1;
+
+    .items-container {
+      flex-direction: column;
+      display: flex;
+      gap: 15px;
+      padding: 20px;
+      height: 100%;
+    }
 
     .header {
       display: flex;
