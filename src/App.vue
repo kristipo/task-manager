@@ -52,7 +52,7 @@ import MButton from "@/components/MButton.vue";
 import MConfirmModal from "@/components/MConfirmModal.vue";
 import MTaskPreview from "@/components/MTaskPreview";
 import { mapGetters } from "vuex";
-import { ACTION_DELETE_TASK } from "@/store";
+import { ACTION_DELETE_TASK, ACTION_FETCH_TASKS } from "@/store";
 
 export default {
   components: {
@@ -106,6 +106,10 @@ export default {
       this.selected = item
       this.removeModalVisible = true
     }
+  },
+
+  async created() {
+    await this.$store.dispatch(ACTION_FETCH_TASKS)
   }
 }
 

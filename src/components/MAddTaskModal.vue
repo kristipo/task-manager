@@ -46,7 +46,7 @@
 <script>
 import MModal from "@/components/MModal";
 import MFormLabel from "@/components/MFormLabel";
-import { ACTION_ADD_TASK, ACTION_EDIT_TASK } from "@/store";
+import { ACTION_CREATE_TASK, ACTION_EDIT_TASK } from "@/store";
 
 const EDIT_BUTTON_TEXT = 'Edit'
 const CREATE_BUTTON_TEXT = 'Create'
@@ -141,7 +141,7 @@ export default {
 
     async submit() {
       const date = this.date.split('-').reverse().join('.')
-      await this.$store.dispatch(this.editMode ? ACTION_EDIT_TASK : ACTION_ADD_TASK, {
+      await this.$store.dispatch(this.editMode ? ACTION_EDIT_TASK : ACTION_CREATE_TASK, {
         id: this.item?.id || null,
         title: [capitalizeFirst(this.type), date, this.task].join('-'),
         body: this.body,

@@ -11,6 +11,10 @@ export default {
         const { id } = await res.json()
         return id
     },
+    async fetchTasks() {
+        return require('./data.json')
+    },
+
 // eslint-disable-next-line no-unused-vars
     async editTask(id) {
         //use PUT method and update selected task by id
