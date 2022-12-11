@@ -5,9 +5,10 @@
         <span>Tasks</span>
         <div class="action-buttons">
           <m-button
-              :text="`${'HIDE' || 'SHOW'} completed`"
+              :text="`${ completedVisible ? 'HIDE' : 'SHOW' } completed`"
               without-background
-              @click="filterDisplayedItems"
+              :disabled="displayedItems.length === 0"
+              @click="completedVisible = !completedVisible"
           />
           <m-button
               text="Add"
@@ -19,7 +20,7 @@
       <template v-if="allTasks.length !== 0">
         <div class="items-container">
           <m-task-preview
-              v-for="task in allTasks"
+              v-for="task in displayedItems"
               :key="task.id"
               :item="task"
               @edit="!task.completed && editTask(task)"
@@ -34,6 +35,10 @@
         <div class="title">No data to display</div>
         <span>Click to ADD</span>
       </div>
+      <m-pagination
+          v-model="currentPage"
+          :count="displayedItemsCount"
+      />
     </div>
     <m-add-task-modal
         v-model="addModalVisible"
@@ -51,24 +56,30 @@
 import MAddTaskModal from "@/components/MAddTaskModal.vue";
 import MButton from "@/components/MButton.vue";
 import MConfirmModal from "@/components/MConfirmModal.vue";
+import MPagination from "@/components/MPagination.vue";
 import MTaskPreview from "@/components/MTaskPreview";
 import { mapGetters } from "vuex";
 import { ACTION_DELETE_TASK, ACTION_FETCH_TASKS } from "@/store";
+
+export const LIMIT = 5
+export const START_PAGE = 1
 
 export default {
   components: {
     MAddTaskModal,
     MButton,
     MConfirmModal,
+    MPagination,
     MTaskPreview
   },
 
   data() {
     return {
       addModalVisible: false,
+      completedVisible: true,
+      currentPage: START_PAGE,
       selected: null,
-      removeModalVisible: false,
-      items: []
+      removeModalVisible: false
     }
   },
 
