@@ -84,7 +84,17 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['allTasks'])
+    ...mapGetters(['allTasks']),
+
+    displayedItems() {
+      const start = (this.currentPage - 1) * LIMIT
+      return (this.completedVisible? this.allTasks : this.allTasks.filter(item => !item.completed)).slice(start, start + LIMIT)
+    },
+
+    displayedItemsCount() {
+      if (this.completedVisible) return this.allTasks.length
+      return this.allTasks.filter(item => !item.completed).length
+    },
   },
 
   watch: {
@@ -106,8 +116,6 @@ export default {
       this.addModalVisible = true
       this.selected = item
     },
-
-    filterDisplayedItems() {},
 
     async removeTask(id) {
       await this.$store.dispatch(ACTION_DELETE_TASK, id)
