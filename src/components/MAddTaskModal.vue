@@ -55,6 +55,8 @@ const HOME_TYPE = 'home'
 const PERSONAL_TYPE = 'personal'
 const WORK_TYPE = 'work'
 const TYPES = [ANIMAL_TYPE, HOME_TYPE, PERSONAL_TYPE, WORK_TYPE]
+const DISPLAYED_TEXT_SEPARATOR = '-'
+const DISPLAYED_DATE_SEPARATOR = '.'
 
 const capitalizeFirst = str => {
   return str[0].toUpperCase() + str.slice(1)
@@ -87,10 +89,10 @@ export default {
 
   data() {
     return {
-      task: 'task 1',
-      date: '2022-12-01',
-      type: 'animal',
-      body: 'body ddddd 1111d555d 555',
+      task: '',
+      date: '',
+      type: '',
+      body: '',
       TYPES
     }
   },
@@ -117,9 +119,9 @@ export default {
       }
 
       if (this.editMode) {
-        const [type, date, task] = this.item?.title.split('-')
+        const [type, date, task] = this.item?.title.split(DISPLAYED_TEXT_SEPARATOR)
         this.type = type.toLowerCase()
-        this.date = date.split('.').reverse().join('-')
+        this.date = date.split(DISPLAYED_DATE_SEPARATOR).reverse().join('-')
         this.task = task
         this.body = this.item?.body || ''
       }
@@ -132,18 +134,14 @@ export default {
     },
 
     reset() {
-      // this.task = this.date = this.type = this.body = ''
-      this.task = 'task 1'
-      this.date = '2022-12-01'
-      this.type = 'animal'
-      this.body = 'body ddddd 1111d555d 555'
+      this.task = this.date = this.type = this.body = ''
     },
 
     async submit() {
-      const date = this.date.split('-').reverse().join('.')
+      const date = this.date.split('-').reverse().join(DISPLAYED_DATE_SEPARATOR)
       await this.$store.dispatch(this.editMode ? ACTION_EDIT_TASK : ACTION_CREATE_TASK, {
         id: this.item?.id || null,
-        title: [capitalizeFirst(this.type), date, this.task].join('-'),
+        title: [capitalizeFirst(this.type), date, this.task].join(DISPLAYED_TEXT_SEPARATOR),
         body: this.body,
         completed: this.item?.completed || false
       })

@@ -41,20 +41,20 @@ export default {
     }
 
     &.done {
-      --background-color: grey;
+      --background-color: #bfbfbf;
       opacity: 0.2;
     }
 
     &.home {
-      --background-color: blue;
+      --background-color: #6e6eff;
     }
 
     &.personal {
-      --background-color: orange;
+      --background-color: #ffdda3;
     }
 
     &.work {
-      --background-color: green;
+      --background-color: #87ff87;
     }
   }
 </style>

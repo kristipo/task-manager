@@ -1,38 +1,36 @@
 [
   {
-    "body": "body ddddd 1111d555d 555",
+    "title": "Home-01.12.2022-TASK 1",
+    "body": "Description for task 1",
     "completed": false,
-    "id": 50603,
-    "title": "Home-01.12.2022-task 1"
+    "id": 50603
   },
   {
-    "body": "body ddddd 1111d555d 555",
+    "title": "Animal-01.12.2022-TASK 2",
     "completed": false,
-    "id": 506013,
-    "title": "Animal-01.12.2022-task 1"
+    "id": 506013
   },
   {
-    "body": "body ddddd 1111d555d 555",
+    "title": "Animal-01.12.2022-New task 3",
+    "body": "Very long long long long long long  long  long  long  long  long  long  long  long  long  long  long  loooooooooooooooooong description",
     "completed": true,
-    "id": 5060113,
-    "title": "Animal-01.12.2022-task 1"
+    "id": 5060113
   },
   {
-    "body": "body ddddd 1111d555d 555",
+    "title": "Work-01.12.2022-task 4",
+    "body": "Description",
     "completed": false,
-    "id": 5025603,
-    "title": "Work-01.12.2022-task 1"
+    "id": 5025603
   },
   {
-    "body": "body ddddd 1111d555d 555",
+    "title": "Personal-01.12.2022-Task 5",
     "completed": false,
-    "id": 50230603,
-    "title": "Personal-01.12.2022-task 1"
+    "id": 50230603
   },
   {
-    "body": "body ddddd 1111d555d 555",
+    "title": "Home-01.12.2022-task 1",
+    "body": "Some task description",
     "completed": false,
-    "id": 502303,
-    "title": "Home-01.12.2022-task 1"
+    "id": 502303
   }
 ]
